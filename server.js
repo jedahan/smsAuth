@@ -28,11 +28,11 @@
       if (reply) {
         return cache.get("from:" + from, function(err, reply) {
           if (err != null) console.error("Error " + err);
-          cache.icr("from:" + from, redis.print);
+          cache.incr("from:" + from, redis.print);
           return response.send(reply);
         });
       } else {
-        cache.set("from:" + from, redis.print);
+        cache.set("from:" + from, 1, redis.print);
         return response.send(1);
       }
     });

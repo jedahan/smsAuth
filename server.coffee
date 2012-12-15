@@ -23,10 +23,10 @@ start = (req, response, next) ->
     if reply
       cache.get "from:#{from}", (err, reply) ->
         console.error "Error #{err}" if err?
-        cache.icr "from:#{from}", redis.print
+        cache.incr "from:#{from}", redis.print
         response.send reply
     else
-      cache.set "from:#{from}", redis.print
+      cache.set "from:#{from}", 1, redis.print
       response.send 1
 
 server = restify.createServer()
