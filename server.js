@@ -21,10 +21,11 @@
     console.info("Parsing " + from);
     return cache.exists("from:" + from, function(err, reply) {
       if (err != null) console.error("Error " + err);
-      cache.incr("from:" + from, redis.print);
       if (reply) {
-        +(reply++);
-        return response.send(200, "" + reply);
+        return cache.incr("from:" + from, function(err, reply) {
+          if (err != null) console.error("Error " + err);
+          return response.send(200, reply);
+        });
       } else {
         cache.set("from:" + from, 1, redis.print);
         return response.send(200, "1");
@@ -34,15 +35,7 @@
 
   server = express();
 
-  /*
-    Object API
-  */
-
   server.get("/startGame", start);
-
-  /*
-    Server Options
-  */
 
   server.listen(80);
 
