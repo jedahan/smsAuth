@@ -20,11 +20,11 @@ start = (req, response, next) ->
   console.info "Parsing #{from}"
   cache.exists "from:#{from}", (err, reply) ->
     console.error "Error #{err}" if err?
-    if reply
-      cache.get "from:#{from}", (err, reply) ->
-        console.error "Error #{err}" if err?
-        cache.incr "from:#{from}", redis.print
-        response.send reply
+    cache.incr "from:#{from}", redis.print
+
+    console.log reply
+    if reply  
+      response.send reply
     else
       cache.set "from:#{from}", 1, redis.print
       response.send 1
@@ -36,7 +36,6 @@ server = restify.createServer()
 ###
 
 server.get  "/startGame", start
-server.post  "/startGame", start
 
 ###
   Server Options

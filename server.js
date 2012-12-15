@@ -25,12 +25,10 @@
     console.info("Parsing " + from);
     return cache.exists("from:" + from, function(err, reply) {
       if (err != null) console.error("Error " + err);
+      cache.incr("from:" + from, redis.print);
+      console.log(reply);
       if (reply) {
-        return cache.get("from:" + from, function(err, reply) {
-          if (err != null) console.error("Error " + err);
-          cache.incr("from:" + from, redis.print);
-          return response.send(reply);
-        });
+        return response.send(reply);
       } else {
         cache.set("from:" + from, 1, redis.print);
         return response.send(1);
@@ -45,8 +43,6 @@
   */
 
   server.get("/startGame", start);
-
-  server.post("/startGame", start);
 
   /*
     Server Options
