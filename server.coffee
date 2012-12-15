@@ -16,20 +16,19 @@ start = (req, response, next) ->
   #next new restify.UnprocessableEntityError "from missing" unless from?
   #next new restify.UnprocessableEntityError "from '#{from}' is not a number" if from is NaN
 
-  #console.info "Parsing #{from}"
-  ###
+  console.info "Parsing #{from}"
+  
   cache.exists "from:#{from}", (err, reply) ->
     console.error "Error #{err}" if err?
     cache.incr "from:#{from}", redis.print
 
-    console.log reply
-    if reply  
-      response.send reply
+    if reply
+      +reply++
+      response.send 200,"#{reply}"
     else
       cache.set "from:#{from}", 1, redis.print
-      response.send 1
-  ###
-  response.send 200,"#{from}"
+      response.send 200,"1"
+  
 server = express()
 
 ###

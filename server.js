@@ -18,19 +18,18 @@
   start = function(req, response, next) {
     var from;
     from = +req.query.from;
-    /*
-      cache.exists "from:#{from}", (err, reply) ->
-        console.error "Error #{err}" if err?
-        cache.incr "from:#{from}", redis.print
-    
-        console.log reply
-        if reply  
-          response.send reply
-        else
-          cache.set "from:#{from}", 1, redis.print
-          response.send 1
-    */
-    return response.send(200, "" + from);
+    console.info("Parsing " + from);
+    return cache.exists("from:" + from, function(err, reply) {
+      if (err != null) console.error("Error " + err);
+      cache.incr("from:" + from, redis.print);
+      if (reply) {
+        +(reply++);
+        return response.send(200, "" + reply);
+      } else {
+        cache.set("from:" + from, 1, redis.print);
+        return response.send(200, "1");
+      }
+    });
   };
 
   server = express();
