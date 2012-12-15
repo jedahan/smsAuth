@@ -30,10 +30,10 @@
           cache.set "from:#{from}", 1, redis.print
           response.send 1
     */
-    return response.send(200, from);
+    return response.send(200, "" + from);
   };
 
-  server = express.createServer();
+  server = express();
 
   /*
     Object API
