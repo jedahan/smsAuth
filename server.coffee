@@ -15,16 +15,20 @@ start = (req, response, next) ->
 
   console.info "Parsing #{from}"
   
-  cache.exists "from:#{from}", (err, reply) ->
+  cache.exists "from:#{from}", (err, reply) =>
     console.error "Error #{err}" if err?
-
-    if reply
-      cache.incr "from:#{from}", (err, reply) ->
+    console.info 'in exists'
+    console.info "#{from} is #{reply}"
+    if reply is 1
+      console.info "we found one, jim"
+      cache.incr "from:#{from}", (err, reply) =>
+        console.info "she's talking about #{reply}"
         console.error "Error #{err}" if err?
-        response.send 200, reply
+        response.send 200, "#{reply}"
     else    
-      cache.set "from:#{from}", 1, redis.print
-      response.send 200,"1"
+      cache.set "from:#{from}", 1, (err, reply) =>
+        console.error "Error #{err}" if err?
+        response.send 200, "1"
   
 server = express()
 

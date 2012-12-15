@@ -17,18 +17,21 @@
 
   start = function(req, response, next) {
     var from;
+    var _this = this;
     from = +req.query.from;
     console.info("Parsing " + from);
     return cache.exists("from:" + from, function(err, reply) {
       if (err != null) console.error("Error " + err);
-      if (reply) {
+      if (reply === 1) {
         return cache.incr("from:" + from, function(err, reply) {
           if (err != null) console.error("Error " + err);
-          return response.send(200, reply);
+          return response.send(200, JSON.parse(reply));
         });
       } else {
-        cache.set("from:" + from, 1, redis.print);
-        return response.send(200, "1");
+        return cache.set("from:" + from, function(err, reply) {
+          if (err != null) console.error("Error " + err);
+          return response.send(200, "1");
+        });
       }
     });
   };
