@@ -1,6 +1,6 @@
 {
   "name": "YOLO",
-  "version": "0.0.3-9",
+  "version": "0.0.4",
   "description": "YOLO",
   "author": "Jonathan Dahan <jonathan@jedahan.com>",
   "dependencies": {
