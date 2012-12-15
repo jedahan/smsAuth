@@ -1,7 +1,7 @@
 {
-  "name": "YOLO",
+  "name": "YODO",
   "version": "0.0.6",
-  "description": "YOLO",
+  "description": "YODO",
   "author": "Jonathan Dahan <jonathan@jedahan.com>",
   "dependencies": {
     "coffee-script": "*",
@@ -15,5 +15,5 @@
   "scripts": {
     "start": "server.js"
   },
-  "subdomain": "jedahan.YOLO"
+  "subdomain": "YODO"
 }
