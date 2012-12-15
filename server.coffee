@@ -42,5 +42,4 @@ server.get  "/startGame", start
   Server Options
 ###
 
-server.listen process.env.PORT or 80, ->
-  console.log "#{server.name} listening at #{server.url}"
+server.listen 80

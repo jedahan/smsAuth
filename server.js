@@ -45,8 +45,6 @@
     Server Options
   */
 
-  server.listen(process.env.PORT || 80, function() {
-    return console.log("" + server.name + " listening at " + server.url);
-  });
+  server.listen(80);
 
 }).call(this);
