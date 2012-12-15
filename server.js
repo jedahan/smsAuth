@@ -17,18 +17,18 @@
 
   start = function(req, response, next) {
     var from;
-    var _this = this;
     from = +req.query.from;
-    console.info("Parsing " + from);
+    console.info("Parsing the number " + from);
     return cache.exists("from:" + from, function(err, reply) {
+      var _this = this;
       if (err != null) console.error("Error " + err);
       if (reply === 1) {
         return cache.incr("from:" + from, function(err, reply) {
           if (err != null) console.error("Error " + err);
-          return response.send(200, JSON.parse(reply));
+          return response.send(200, "" + reply);
         });
       } else {
-        return cache.set("from:" + from, function(err, reply) {
+        return cache.set("from:" + from, 1, function(err, reply) {
           if (err != null) console.error("Error " + err);
           return response.send(200, "1");
         });

@@ -1,11 +1,11 @@
 {
   "name": "YOLO",
-  "version": "0.0.4-7",
+  "version": "0.0.6",
   "description": "YOLO",
   "author": "Jonathan Dahan <jonathan@jedahan.com>",
   "dependencies": {
-    "coffee-script": "1.1.x",
-    "redis": "0.8.x",
+    "coffee-script": "*",
+    "redis": "*",
     "express": "*"
   },
   "engines": {
