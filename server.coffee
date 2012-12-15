@@ -11,7 +11,6 @@ cache.auth 'nodejitsudb4169292647.redis.irstack.com:f327cfe980c971946e80b8e975fb
     throw err
 
 start = (req, response, next) ->
-  from = +req.body.from
   console.log req.body
   console.log "req.body"
   console.log req.params

@@ -16,15 +16,15 @@
   });
 
   start = function(req, response, next) {
-    var from;
-    from = +req.body.from;
     console.log(req.body);
     console.log("req.body");
     console.log(req.params);
     console.log("req.params");
     console.log(req.query);
     console.log("req.query");
-    if (from == null) next(new restify.UnprocessableEntityError("from missing"));
+    if (typeof from === "undefined" || from === null) {
+      next(new restify.UnprocessableEntityError("from missing"));
+    }
     if (from === NaN) {
       next(new restify.UnprocessableEntityError("from '" + from + "' is not a number"));
     }
