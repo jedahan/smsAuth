@@ -34,11 +34,11 @@ server = restify.createServer()
   Object API
 ###
 
-server.get  "/startGame/", start
+server.get  "/startGame", start
 
 ###
   Server Options
 ###
 
-server.listen process.env.PORT or 8080, ->
+server.listen process.env.PORT or 80, ->
   console.log "#{server.name} listening at #{server.url}"

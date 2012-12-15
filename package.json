@@ -1,17 +1,19 @@
-{ "name": "YOLO"
-, "version": "0.0.1"
-, "description": "YOLO"
-, "author": "Jonathan Dahan <jonathan@jedahan.com>"
-, "dependencies":
-  { "coffee-script": "1.1.x"
-  , "redis": "0.8.x"
-  , "restify": "1.4.x"
-  }
-, "engines": {
+{
+  "name": "YOLO",
+  "version": "0.0.1",
+  "description": "YOLO",
+  "author": "Jonathan Dahan <jonathan@jedahan.com>",
+  "dependencies": {
+    "coffee-script": "1.1.x",
+    "redis": "0.8.x",
+    "restify": "1.4.x"
+  },
+  "engines": {
     "node": "0.8.x",
-    "npm":  "1.1.x"
-  }
-, "scripts":
-  { "start": "coffee server"
-  }
+    "npm": "1.1.x"
+  },
+  "scripts": {
+    "start": "server.js"
+  },
+  "subdomain": "jedahan.YOLO"
 }
