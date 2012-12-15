@@ -22,7 +22,6 @@
     console.log("req.params");
     console.log(req.query);
     console.log("req.query");
-    console.info("Parsing " + from);
     /*
       cache.exists "from:#{from}", (err, reply) ->
         console.error "Error #{err}" if err?

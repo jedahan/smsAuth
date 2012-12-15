@@ -21,7 +21,7 @@ start = (req, response, next) ->
   #next new restify.UnprocessableEntityError "from missing" unless from?
   #next new restify.UnprocessableEntityError "from '#{from}' is not a number" if from is NaN
 
-  console.info "Parsing #{from}"
+  #console.info "Parsing #{from}"
   ###
   cache.exists "from:#{from}", (err, reply) ->
     console.error "Error #{err}" if err?
