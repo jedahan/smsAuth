@@ -11,8 +11,7 @@ cache.auth 'nodejitsudb4169292647.redis.irstack.com:f327cfe980c971946e80b8e975fb
     throw err
 
 start = (req, response, next) ->
-  console.log req.params
-  from = +req.params.from
+  from = +req.query.from
 
   next new restify.UnprocessableEntityError "from missing" unless from?
   next new restify.UnprocessableEntityError "from '#{from}' is not a number" if from is NaN

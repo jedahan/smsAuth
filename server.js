@@ -17,8 +17,7 @@
 
   start = function(req, response, next) {
     var from;
-    console.log(req.params);
-    from = +req.params.from;
+    from = +req.query.from;
     if (from == null) next(new restify.UnprocessableEntityError("from missing"));
     if (from === NaN) {
       next(new restify.UnprocessableEntityError("from '" + from + "' is not a number"));
