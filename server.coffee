@@ -18,8 +18,8 @@ start = (req, response, next) ->
   console.log req.query
   console.log "req.query"
 
-  next new restify.UnprocessableEntityError "from missing" unless from?
-  next new restify.UnprocessableEntityError "from '#{from}' is not a number" if from is NaN
+  #next new restify.UnprocessableEntityError "from missing" unless from?
+  #next new restify.UnprocessableEntityError "from '#{from}' is not a number" if from is NaN
 
   console.info "Parsing #{from}"
   ###

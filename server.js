@@ -22,12 +22,6 @@
     console.log("req.params");
     console.log(req.query);
     console.log("req.query");
-    if (typeof from === "undefined" || from === null) {
-      next(new restify.UnprocessableEntityError("from missing"));
-    }
-    if (from === NaN) {
-      next(new restify.UnprocessableEntityError("from '" + from + "' is not a number"));
-    }
     console.info("Parsing " + from);
     /*
       cache.exists "from:#{from}", (err, reply) ->
