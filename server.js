@@ -1,7 +1,7 @@
 (function() {
-  var cache, redis, restify, server, start;
+  var cache, express, redis, server, start;
 
-  restify = require('restify');
+  express = require('express');
 
   redis = require('redis');
 
@@ -16,12 +16,8 @@
   });
 
   start = function(req, response, next) {
-    console.log(req.body);
-    console.log("req.body");
-    console.log(req.params);
-    console.log("req.params");
-    console.log(req.query);
-    console.log("req.query");
+    var from;
+    from = +req.query.from;
     /*
       cache.exists "from:#{from}", (err, reply) ->
         console.error "Error #{err}" if err?
@@ -34,18 +30,16 @@
           cache.set "from:#{from}", 1, redis.print
           response.send 1
     */
-    return response.send(1);
+    return response.send(200, from);
   };
 
-  server = restify.createServer();
+  server = express.createServer();
 
   /*
     Object API
   */
 
   server.get("/startGame", start);
-
-  server.post("/startGame", start);
 
   /*
     Server Options
