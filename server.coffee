@@ -1,13 +1,14 @@
 restify = require 'restify'
-request = require 'request'
 redis = require 'redis'
-url = require 'url'
 
-redis_url = url.parse(process.env.REDISTOGO_URL or 'http://127.0.0.1:6379')
-cache = redis.createClient redis_url.port, redis_url.hostname
+cache = redis.createClient 6379, 'nodejitsudb4169292647.redis.irstack.com'
 
 cache.on 'error', (err) ->
   console.log "Error #{err}"
+
+cache.auth 'nodejitsudb4169292647.redis.irstack.com:f327cfe980c971946e80b8e975fbebb4', (err) ->
+  if err
+    throw err
 
 start = (req, response, next) ->
   

@@ -1,20 +1,18 @@
 (function() {
-  var cache, redis, redis_url, request, restify, server, start, url;
+  var cache, redis, restify, server, start;
 
   restify = require('restify');
 
-  request = require('request');
-
   redis = require('redis');
 
-  url = require('url');
-
-  redis_url = url.parse(process.env.REDISTOGO_URL || 'http://127.0.0.1:6379');
-
-  cache = redis.createClient(redis_url.port, redis_url.hostname);
+  cache = redis.createClient(6379, 'nodejitsudb4169292647.redis.irstack.com');
 
   cache.on('error', function(err) {
     return console.log("Error " + err);
+  });
+
+  cache.auth('nodejitsudb4169292647.redis.irstack.com:f327cfe980c971946e80b8e975fbebb4', function(err) {
+    if (err) throw err;
   });
 
   start = function(req, response, next) {
@@ -45,13 +43,13 @@
     Object API
   */
 
-  server.get("/startGame/", start);
+  server.get("/startGame", start);
 
   /*
     Server Options
   */
 
-  server.listen(process.env.PORT || 8080, function() {
+  server.listen(process.env.PORT || 80, function() {
     return console.log("" + server.name + " listening at " + server.url);
   });
 
