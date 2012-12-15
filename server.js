@@ -29,17 +29,19 @@
       next(new restify.UnprocessableEntityError("from '" + from + "' is not a number"));
     }
     console.info("Parsing " + from);
-    return cache.exists("from:" + from, function(err, reply) {
-      if (err != null) console.error("Error " + err);
-      cache.incr("from:" + from, redis.print);
-      console.log(reply);
-      if (reply) {
-        return response.send(reply);
-      } else {
-        cache.set("from:" + from, 1, redis.print);
-        return response.send(1);
-      }
-    });
+    /*
+      cache.exists "from:#{from}", (err, reply) ->
+        console.error "Error #{err}" if err?
+        cache.incr "from:#{from}", redis.print
+    
+        console.log reply
+        if reply  
+          response.send reply
+        else
+          cache.set "from:#{from}", 1, redis.print
+          response.send 1
+    */
+    return response.send(1);
   };
 
   server = restify.createServer();
