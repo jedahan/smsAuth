@@ -17,10 +17,11 @@
 
   start = function(req, response, next) {
     var from;
+    console.log(req.params);
     from = +req.params.from;
     if (from == null) next(new restify.UnprocessableEntityError("from missing"));
     if (from === NaN) {
-      next(new restify.UnprocessableEntityError("from '" + req.params.from + "' is not a number"));
+      next(new restify.UnprocessableEntityError("from '" + from + "' is not a number"));
     }
     console.info("Parsing " + from);
     return cache.exists("from:" + from, function(err, reply) {
