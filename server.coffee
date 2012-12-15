@@ -12,7 +12,7 @@ cache.auth 'nodejitsudb4169292647.redis.irstack.com:f327cfe980c971946e80b8e975fb
 
 start = (req, response, next) ->
   
-  from = req.params.from
+  from = +req.params.from
 
   next new restify.UnprocessableEntityError "from missing" unless from?
   next new restify.UnprocessableEntityError "from '#{req.params.from}' is not a number" if from is NaN
@@ -23,10 +23,10 @@ start = (req, response, next) ->
     if reply
       cache.get "from:#{from}", (err, reply) ->
         console.error "Error #{err}" if err?
-        # increment access count by one
+        cache.icr "from:#{from}", redis.print
         response.send reply
     else
-      cache.set "from:#{id}", 1, redis.print
+      cache.set "from:#{from}", redis.print
       response.send 1
 
 server = restify.createServer()

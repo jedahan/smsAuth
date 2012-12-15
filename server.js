@@ -17,7 +17,7 @@
 
   start = function(req, response, next) {
     var from;
-    from = req.params.from;
+    from = +req.params.from;
     if (from == null) next(new restify.UnprocessableEntityError("from missing"));
     if (from === NaN) {
       next(new restify.UnprocessableEntityError("from '" + req.params.from + "' is not a number"));
@@ -28,10 +28,11 @@
       if (reply) {
         return cache.get("from:" + from, function(err, reply) {
           if (err != null) console.error("Error " + err);
+          cache.icr("from:" + from, redis.print);
           return response.send(reply);
         });
       } else {
-        cache.set("from:" + id, 1, redis.print);
+        cache.set("from:" + from, redis.print);
         return response.send(1);
       }
     });
