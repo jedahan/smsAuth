@@ -44,6 +44,8 @@
 
   server.get("/startGame", start);
 
+  server.post("/startGame", start);
+
   /*
     Server Options
   */
