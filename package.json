@@ -1,13 +1,14 @@
 {
   "name": "YODO",
-  "version": "0.0.6-2",
+  "version": "0.0.6-3",
   "description": "YODO",
   "author": "Jonathan Dahan <jonathan@jedahan.com>",
   "dependencies": {
     "coffee-script": "*",
     "redis": "*",
     "express": "*",
-    "socket.io": "*"
+    "socket.io": "*",
+    "faye-websocket": "*"
   },
   "engines": {
     "node": "0.8.x",
