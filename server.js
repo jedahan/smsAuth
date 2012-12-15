@@ -1,9 +1,21 @@
 (function() {
-  var cache, express, redis, server, start;
+  var Firebase, cache, coin, express, redis, server, start;
 
   express = require('express');
 
   redis = require('redis');
+
+  /*
+  io = require 'socket.io'
+  io.listen 8080
+  
+  io.sockets.on 'connection', (socket) ->
+    socket.emit 'news', { hello: 'world' }
+  */
+
+  Firebase = require('./firebase-node');
+
+  coin = new Firebase('https://yodo.firebaseIO.com/coin');
 
   cache = redis.createClient(6379, 'nodejitsudb4169292647.redis.irstack.com');
 
@@ -25,11 +37,13 @@
       if (reply === 1) {
         return cache.incr("from:" + from, function(err, reply) {
           if (err != null) console.error("Error " + err);
+          coin.set(reply);
           return response.send(200, "" + reply);
         });
       } else {
         return cache.set("from:" + from, 1, function(err, reply) {
           if (err != null) console.error("Error " + err);
+          coin.set(1);
           return response.send(200, "1");
         });
       }

@@ -1,5 +1,14 @@
 express = require 'express'
 redis = require 'redis'
+###
+io = require 'socket.io'
+io.listen 8080
+
+io.sockets.on 'connection', (socket) ->
+  socket.emit 'news', { hello: 'world' }
+###
+Firebase = require './firebase-node'
+coin = new Firebase 'https://yodo.firebaseIO.com/coin'
 
 cache = redis.createClient 6379, 'nodejitsudb4169292647.redis.irstack.com'
 
@@ -20,10 +29,12 @@ start = (req, response, next) ->
     if reply is 1
       cache.incr "from:#{from}", (err, reply) =>
         console.error "Error #{err}" if err?
+        coin.set reply
         response.send 200, "#{reply}"
     else    
       cache.set "from:#{from}", 1, (err, reply) =>
         console.error "Error #{err}" if err?
+        coin.set 1
         response.send 200, "1"
   
 server = express()
